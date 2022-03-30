@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "907111860653",
+    "project_id": "filemanager-4f3f1",
+    "storage_bucket": "filemanager-4f3f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907111860653:android:7941804fc9e62034c9b924",
+        "android_client_info": {
+          "package_name": "com.example.filemanagerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907111860653-9b7h0k8fg0r9tthmuq1gkd442otu13i8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.filemanagerapp",
+            "certificate_hash": "67f2e10c153b695ae2522d91dd0a4e1ea12a58d6"
+          }
+        },
+        {
+          "client_id": "907111860653-47hdtu85eddd1gh065mhus7cupck56fo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuBNTqd3z3S5h6GKYaU93BHTtJgGtCK-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907111860653-47hdtu85eddd1gh065mhus7cupck56fo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
