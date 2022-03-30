@@ -35,7 +35,8 @@ class _FolderScreenState extends State<FolderScreen> {
     );
   }
 
-  _showPopupMenu(Offset offset) async {
+  _showPopupMenu(
+      BuildContext context, Offset offset, FileSystemEntity entity) async {
     double left = offset.dx;
     double top = offset.dy;
     await showMenu(
@@ -43,14 +44,19 @@ class _FolderScreenState extends State<FolderScreen> {
       position: RelativeRect.fromLTRB(left, top, 0, 0),
       items: [
         PopupMenuItem<String>(
-          child: const Text('Rename'),
-          value: 'rename',
-          onTap: () {},
-        ),
+            child: const Text('Rename'),
+            value: 'rename',
+            onTap: () {
+              Navigator.of(context).pop();
+              renameFolder(context, entity);
+            }),
         PopupMenuItem<String>(
           child: const Text('Delete'),
           value: 'delete',
-          onTap: () {},
+          onTap: () async {
+            await entity.delete(recursive: true);
+            setState(() {});
+          },
         ),
         PopupMenuItem<String>(
           child: const Text('Upload'),
@@ -59,6 +65,57 @@ class _FolderScreenState extends State<FolderScreen> {
         ),
       ],
       elevation: 8.0,
+    );
+  }
+
+  renameFolder(BuildContext context, FileSystemEntity entity) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        TextEditingController folderName = TextEditingController();
+        return Dialog(
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  title: TextField(
+                    controller: folderName,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    await entity.rename(folderName.text);
+
+                    setState(() {});
+
+                    // try {
+                    //   // Create Folder
+                    //   await FileManager.createFolder(
+                    //       controller.getCurrentPath, folderName.text);
+                    //   // Open Created Folder
+                    //   controller.setCurrentPath =
+                    //       controller.getCurrentPath + "/" + folderName.text;
+                    //   print(controller.getCurrentPath);
+                    // } catch (e) {
+                    //   print(e);
+                    // }
+
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Rename Folder',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -221,7 +278,7 @@ class _FolderScreenState extends State<FolderScreen> {
                     },
                     trailing: GestureDetector(
                       onTapDown: (TapDownDetails details) {
-                        _showPopupMenu(details.globalPosition);
+                        _showPopupMenu(context, details.globalPosition, entity);
                       },
                       child: const Icon(
                         Icons.arrow_drop_down_outlined,

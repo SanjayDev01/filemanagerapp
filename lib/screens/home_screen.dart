@@ -70,6 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
+          const SizedBox(
+            height: 40,
+          ),
           Card(
             child: ListTile(
               leading: const Icon(Icons.folder_outlined),
