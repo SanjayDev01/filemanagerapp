@@ -1,3 +1,4 @@
+import 'package:filemanagerapp/utilities/auth_check.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,7 +15,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (_) => const AuthenticationWrapper()));
     });
   }
 
