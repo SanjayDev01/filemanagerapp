@@ -61,7 +61,9 @@ class _FolderScreenState extends State<FolderScreen> {
         PopupMenuItem<String>(
           child: const Text('Upload'),
           value: 'upload',
-          onTap: () {},
+          onTap: () {
+            moveFile(File(entity.path));
+          },
         ),
       ],
       elevation: 8.0,
@@ -86,7 +88,7 @@ class _FolderScreenState extends State<FolderScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    // print(entity.path.re);
+                    print(entity.path);
                     await entity.rename(
                         entity.path.replaceRange(20, null, folderName.text));
 
@@ -188,6 +190,22 @@ class _FolderScreenState extends State<FolderScreen> {
         ),
       ),
     );
+  }
+
+  Future<File> moveFile(File sourceFile) async {
+    try {
+      await FileManager.createFolder("/storage/emulated/0/", "Filemanager");
+      // prefer using rename as it is probably faster
+      return await sourceFile.rename("/storage/emulated/0/Filemanager/" +
+          sourceFile.path.substring(sourceFile.path.lastIndexOf("/")));
+    } on FileSystemException {
+      // if rename fails, copy the source file and then delete it
+      final newFile = await sourceFile.copy("/storage/emulated/0/Filemanager/" +
+          sourceFile.path.substring(sourceFile.path.lastIndexOf("/")));
+      await sourceFile.delete();
+      setState(() {});
+      return newFile;
+    }
   }
 
   @override
