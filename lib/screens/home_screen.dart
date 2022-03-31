@@ -1,4 +1,5 @@
 import 'package:filemanagerapp/screens/folder.dart';
+import 'package:filemanagerapp/screens/private_dir.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,7 +12,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool isLocked = true;
 
-  moveToDirectory() {}
+  moveToDirectory() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (_) => const PrivateDirectory()));
+  }
+
   enterPass(BuildContext context) async {
     showDialog(
       context: context,
@@ -75,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Card(
             child: ListTile(
-              leading: const Icon(Icons.folder_outlined),
+              leading: const Icon(Icons.folder),
               title: const Text("Local Storage"),
               onTap: () {
                 Navigator.push(
@@ -90,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Card(
             child: ListTile(
-              leading: const Icon(Icons.folder_outlined),
+              leading: const Icon(Icons.folder),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
