@@ -47,8 +47,8 @@ class _FolderScreenState extends State<FolderScreen> {
             child: const Text('Rename'),
             value: 'rename',
             onTap: () {
-              Navigator.of(context).pop();
-              renameFolder(context, entity);
+              Future.delayed(const Duration(seconds: 1),
+                  () => renameFolder(context, entity));
             }),
         PopupMenuItem<String>(
           child: const Text('Delete'),
@@ -86,7 +86,9 @@ class _FolderScreenState extends State<FolderScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    await entity.rename(folderName.text);
+                    // print(entity.path.re);
+                    await entity.rename(
+                        entity.path.replaceRange(20, null, folderName.text));
 
                     setState(() {});
 
